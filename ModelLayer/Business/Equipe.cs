@@ -19,10 +19,22 @@ namespace ModelLayer.Business
             _dateCreation = dateCreation;
             _LstJoueur = new List<Joueur>();
         }
+        public Equipe()
+        {
+            this._id = Id;
+            this._nom = Nom;
+            this._dateCreation = DateCreation;
+            this._LstJoueur = new List<Joueur>();
+        }
 
         public int Id { get => _id; set => _id = value; }
         public string Nom { get => _nom; set => _nom = value; }
         public DateTime DateCreation { get => _dateCreation; set => _dateCreation = value; }
         internal List<Joueur> LstJoueur { get => _LstJoueur; set => _LstJoueur = value; }
+
+        public override string ToString()
+        {
+            return this.Nom;
+        }
     }
 }

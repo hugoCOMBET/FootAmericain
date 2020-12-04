@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using ModelLayer.Business;
 using ModelLayer.Data;
-
-
+using FootAmericain;
 
 namespace WpfFootAmericain
 {
@@ -23,22 +18,25 @@ namespace WpfFootAmericain
         //déclarer ici les attributs de la class App
         //on viendra y déclarer notamement nos objets Dbal et Dao
         //au lancement de la solutio, Dbal et Dao seront donc instanciés et passés aux différentes fenêtres
-
         private Dbal thedbal;
-        private DaoPays thedaopays;
-        private DaoFromage thedaofromage;
+        private DAOPays thedaopays;
+        private DaoEquipe thedaoequipe;
+        private DaoJoueur thedaojoueur;
+        private DaoPoste thedaoposte;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //C'est ici, dans la méthode Application_Startup, qu'on instancie nos objets Dbal et Dao
 
-            thedbal = new Dbal("dbclubfromage");
-            thedaopays = new DaoPays(thedbal);
-            thedaofromage = new DaoFromage(thedbal, thedaopays);
+            thedbal = new Dbal("dsfootamericain");
+            thedaopays = new DAOPays(thedbal);
+            thedaoequipe = new DaoEquipe(thedbal);
+            thedaoposte = new DaoPoste(thedbal);
+            thedaojoueur = new DaoJoueur(thedbal,thedaopays,thedaoposte,thedaoequipe);
 
             // Create the startup window
             //là, on lance la fenêtre souhaitée en instanciant la classe de notre fenêtre
-            GestionFromages wnd = new GestionFromages(thedaopays, thedaofromage);
+            MainWindow wnd = new MainWindow(thedaoequipe,thedaojoueur, thedaopays,thedaoposte) ;
             //et on utilise la méthode Show() de notre objet fenêtre pour afficher la fenêtre
             //exemple: MainWindow lafenetre = new MainWindow(); (et on y passe en paramètre Dbal et Dao au besoin)
             wnd.Show();

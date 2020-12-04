@@ -21,5 +21,10 @@ namespace ModelLayer.Business
         public int Id { get => _id; set => _id = value; }
         public string Nom { get => _nom; set => _nom = value; }
         public int Escouade { get => _escouade; set => _escouade = value; }
+
+        public override string ToString()
+        {
+            return this.Nom;
+        }
     }
 }

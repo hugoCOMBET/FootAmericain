@@ -14,11 +14,13 @@ namespace ModelLayer.Data
         private Dbal thedbal;
         private DAOPays theDaoPays;
         private DaoPoste theDaoPoste;
-        public DaoJoueur(Dbal mydbal,DAOPays theDaoPays, DaoPoste theDaoPoste)
+        private DaoEquipe theDaoEquipe;
+        public DaoJoueur(Dbal mydbal,DAOPays theDaoPays, DaoPoste theDaoPoste,DaoEquipe theDaoEquipe)
         {
             this.thedbal = mydbal;
             this.theDaoPays = theDaoPays;
             this.theDaoPoste = theDaoPoste;
+            this.theDaoEquipe = theDaoEquipe;
         }
 
         public void Insert(Joueur theJoueur,Equipe theEquipe)
@@ -62,6 +64,25 @@ namespace ModelLayer.Data
         {
             DataRow result = this.thedbal.SelectById("Joueur", idPays);
             return new Joueur((int)result["id"], (string)result["nom"], (DateTime)result["dateCreation"], (DateTime)result["dateNaissance"], (Poste)result["nom"], (Pays)result["nom"]);
+        }
+
+        public void Update(Joueur monJoueur,Equipe monEquipe)
+        {
+            string query = "Joueur SET id = " + monJoueur.Id
+               + ", nom = '" + monJoueur.Nom.Replace("'", "''")
+               + "', dateEntree = '" + monJoueur.DateEntree.ToString("yyyy-MM-dd")
+               + "', dateNaissance = '" + monJoueur.DateNaissance.ToString("yyyy-MM-dd")
+               + "', pays = '" + monJoueur.LePays.Id
+               + "', poste = '" + monJoueur.LePoste.Id
+               + "', equipe = '" + monEquipe.Id
+               + "' "
+               + "WHERE id = " + monJoueur.Id;
+            this.thedbal.Update(query);
+        }
+        public void Delete(Joueur leJoueur)
+        {
+            string requete = "Joueur where id = '" + leJoueur.Id + "'";
+            this.thedbal.Delete(requete);
         }
     }
 }

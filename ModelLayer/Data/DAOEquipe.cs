@@ -20,33 +20,33 @@ namespace ModelLayer.Data
 
         public void Insert(Equipe theEquipe)
         {
-            string query = "Pays (id, nom) VALUES (" + theEquipe.Id + ",'" + theEquipe.Nom.Replace("'", "''") + theEquipe.DateCreation + ",'" + theEquipe.LstJoueur + ",'" + "')";
+            string query = "Equipe (id, nom) VALUES (" + theEquipe.Id + ",'" + theEquipe.Nom.Replace("'", "''") + theEquipe.DateCreation + ",'" + theEquipe.LstJoueur + ",'" + "')";
             this.thedbal.Insert(query);
         }
         public List<Equipe> SelectAll()
         {
-            List<Equipe> listPays = new List<Equipe>();
+            List<Equipe> listEquipe = new List<Equipe>();
             DataTable myTable = this.thedbal.SelectAll("Equipe");
 
             foreach (DataRow r in myTable.Rows)
             {
-                listPays.Add(new Equipe((int)r["id"], (string)r["nom"], (DateTime)r["dateCreation"]));
+                listEquipe.Add(new Equipe((int)r["id"], (string)r["nom"], (DateTime)r["dateCreation"]));
             }
-            return listPays;
+            return listEquipe;
         }
 
         public Equipe SelectByName(string nameEquipe)
         {
             DataTable result = new DataTable();
-            result = this.thedbal.SelectByField("pays", "name = '" + nameEquipe.Replace("'", "''") + "'");
-            Equipe foundEquipe = new Equipe((int)result.Rows[0]["id"], (string)result.Rows[0]["name"], (DateTime)result.Rows[0]["dateCreation"]);
+            result = this.thedbal.SelectByField("Equipe", "nom = '" + nameEquipe.Replace("'", "''") + "'");
+            Equipe foundEquipe = new Equipe((int)result.Rows[0]["id"], (string)result.Rows[0]["nom"], (DateTime)result.Rows[0]["dateCreation"]);
             return foundEquipe;
         }
 
         public Equipe SelectById(int idPays)
         {
-            DataRow result = this.thedbal.SelectById("Pays", idPays);
-            return new Equipe((int)result["id"], (string)result["name"], (DateTime)result["dateCreation"]);
+            DataRow result = this.thedbal.SelectById("Equipe", idPays);
+            return new Equipe((int)result["id"], (string)result["nom"], (DateTime)result["dateCreation"]);
         }
     }
 }

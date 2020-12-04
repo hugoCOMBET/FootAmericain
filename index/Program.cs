@@ -21,12 +21,15 @@ namespace index
         private static DaoJoueur myDaoJoueur;
         private static Joueur myJoueur;
 
+        private static DaoEquipe myDaoEquipe;
+        private static Equipe myEquipe;
+
         static void Main(string[] args)
         {
             mondbal = new Dbal("dsfootamericain");
             myDaoPays = new DAOPays(mondbal);
             myDaoPoste = new DaoPoste(mondbal);
-            myDaoJoueur = new DaoJoueur(mondbal, myDaoPays, myDaoPoste);
+            myDaoJoueur = new DaoJoueur(mondbal, myDaoPays, myDaoPoste,myDaoEquipe);
 
             #region testPays
             //afficher liste pays

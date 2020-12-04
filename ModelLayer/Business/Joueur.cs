@@ -14,6 +14,7 @@ namespace ModelLayer.Business
         private Poste _lePoste;
         private Pays _lePays;
 
+
         public Joueur(int id, string nom, DateTime dateEntree, DateTime dateNaissance, Poste lePoste, Pays lePays)
         {
             _id = id;
@@ -24,11 +25,26 @@ namespace ModelLayer.Business
             _lePays = lePays;
         }
 
+        public Joueur()
+        {
+            this._id = Id;
+            this._nom = Nom;
+            this._dateEntree = DateEntree;
+            this._dateNaissance = DateNaissance;
+            this._lePoste = LePoste;
+            this._lePays = LePays;
+        }
+
         public int Id { get => _id; set => _id = value; }
         public string Nom { get => _nom; set => _nom = value; }
         public DateTime DateEntree { get => _dateEntree; set => _dateEntree = value; }
         public DateTime DateNaissance { get => _dateNaissance; set => _dateNaissance = value; }
         public Poste LePoste { get => _lePoste; set => _lePoste = value; }
         public Pays LePays { get => _lePays; set => _lePays = value; }
+
+        public override string ToString()
+        {
+            return this.Nom;
+        }
     }
 }
